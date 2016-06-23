@@ -1,0 +1,250 @@
+/*
+* VARIABLES
+*/
+@top-left-color: #00a74a;
+@top-right-color: #9f0f17;
+@bottom-left-color: #cca707;
+@bottom-right-color: #094a8f;
+@border-color: #333;
+@screen-color: #32050C;
+@shadow: 2px 2px 5px;
+@glow: 0 0 20px;
+@led-off: #430710;
+@led-on: #DC0D29;
+/*
+* MIXINS
+*/
+.disable-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.quarter {
+    height: 200px;
+    width: 200px;
+    border: 20px solid @border-color;
+    cursor: pointer;
+    display: inline-block;
+}
+/*
+* CUSTOM STYLES
+*/
+body {
+    font-family: monospace;
+    .disable-select;
+}
+.game {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.simon {
+    position: relative;
+    display: inline-block;
+    margin-top: 40px;
+}
+//--- START 4 QUARTERS
+.circle {
+    font-size: 0;
+}
+.top-left {
+    .quarter;
+    background-color: @top-left-color;
+    border-radius: 100% 0 0 0;
+    &:active {
+        background: lighten(@top-left-color,20%);
+    }
+}
+.top-left.active {
+    background: lighten(@top-left-color,20%);
+}
+.top-right {
+    .quarter;
+    background-color: @top-right-color;
+    border-radius: 0 100% 0 0;
+    &:active {
+        background: lighten(@top-right-color,20%);
+    }
+}
+.top-right.active {
+    background: lighten(@top-right-color,20%);
+}
+.bottom-left {
+    .quarter;
+    background-color: @bottom-left-color;
+    border-radius: 0 0 0 100%;
+    &:active {
+        background: lighten(@bottom-left-color,20%);
+    }
+}
+.bottom-left.active {
+    background: lighten(@bottom-left-color,20%);
+}
+.bottom-right {
+    .quarter;
+    background-color: @bottom-right-color;
+    border-radius: 0 0 100% 0;
+    &:active {
+        background: lighten(@bottom-right-color,20%);
+    }
+}
+.bottom-right.active {
+    background: lighten(@bottom-right-color,20%);
+}
+.active {
+    background-color: black;
+}
+//--- END 4 QUARTERS
+//--- START BOARD
+.board {
+    height: 200px;
+    width: 200px;
+    text-align: center;
+    border: 20px solid @border-color;
+    border-radius: 100%;
+    padding: 20px;
+    background-color: white;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+//-- END BOARD
+//--- START TITLE
+.title {
+    font-size: 3em;
+    &:after {
+        content: '\00ae';
+        vertical-align: super;
+        font-size: 0.5em;
+    }
+}
+//--- END TITLE
+//--- START CONFIGURATION BOX
+.config-box {
+    margin-top: 10px;
+    display: flex;
+    align-items: stretch;
+}
+//--- END CONFIGURATION BOX
+//--- START LIGHT BUTTONS
+.button-box {
+    position: relative;
+    margin-left: 20px;
+    margin-right: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    h5 {
+        margin-top: 5px;
+    }
+}
+.inner-button-box {
+    position: absolute;
+    bottom: 0;
+}
+.light-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 4px solid @border-color;
+    box-shadow: @shadow;
+    margin: auto;
+    cursor: pointer;
+    &:active {
+        transform: translateY(2px);
+        box-shadow: @glow;
+    }
+}
+.led {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: black;
+    margin: 5px auto;
+}
+.yellow {
+    background-color: yellow;
+}
+.red {
+    background-color: red;
+}
+.on {
+    background-color: darken(yellow,20%);
+    box-shadow: @glow;
+}
+//--- END LIGHT BUTTONS
+//--- START COUNT SCREEN
+.count-box {
+    height: 100%;
+    text-align: center;
+    h5 {
+        margin-top: 5px;
+    }
+}
+.count-screen {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border: 4px solid @border-color;
+    border-radius: 10%;
+    box-shadow: @shadow;
+    background-color: @screen-color;
+    span {
+        position: absolute;
+        left: 0;
+        top: 5px;
+        font-size: 3em;
+    }
+}
+.led-off {
+    color: @led-off;
+}
+.led-on {
+    color: @led-on;
+}
+//--- END COUNT SCREEN
+//--- START SLIDER
+.switch {
+    margin-top: 20px;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    input {
+        display: none;
+    }
+}
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: lighten(@border-color,50%);
+    border-radius: 10%;
+    cursor: pointer;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    &:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        border-radius: 10%;
+        background-color: #3193DE;
+    }
+}
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+input:checked + .slider {
+    background-color: @border-color;
+}
+//--- END SLIDER
+//--- START OTHERS
+//--- END OTHERS
